@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  php:
+    container_name: laravel-test 
+    image: dotweb.test/php:7.4-dev
+    volumes:
+      - ./:/app
+
