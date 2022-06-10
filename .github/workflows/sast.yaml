@@ -1,0 +1,26 @@
+name: "Polaris Scan Action"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  security:
+    name: security scans
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Static Analysis with Polaris Action
+        uses: devsecops-test/polaris-action@v1
+        with:
+          polarisServerUrl: ${{secrets.POLARIS_SERVER_URL}}
+          polarisAccessToken: ${{secrets.POLARIS_ACCESS_TOKEN}}
+          polarisProjectName: ${{ github.repository }}
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: polaris-scan-results.sarif.json

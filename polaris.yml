@@ -1,0 +1,27 @@
+version: "1"
+project:
+  name: ${scm.git.repo}
+  branch: main
+  revision:
+    name: ${scm.git.commit}
+    date: ${scm.git.commit.date}
+capture:
+  fileSystem:
+    javascript:
+      files:
+        - directory: ${project.projectDir}
+        - excludeRegex: node_modules
+    php:
+      files:
+        - directory: ${project.projectDir}
+        - excludeRegex: vendor
+    typescript:
+      files:
+        - directory: ${project.projectDir}
+        - excludeRegex: node_modules
+analyze:
+  mode: central
+install:
+  coverity:
+    version: default
+serverUrl: https://visma.polaris.synopsys.com
